@@ -5,9 +5,34 @@ use std::cmp::Ordering;
 use std::mem;
 
 fn main() {   
-   //guess_the_number();
-   //struct_enum_option(); 
-   //array();
+    //guess_the_number();
+    //struct_enum_option(); 
+    //array();
+    /*** Ownership And Borrow ***/
+    let mut s2 = get_ownership();
+    borrowed_as_read_only(&s2);
+    borrowed_as_write_read(&mut s2);
+    move_ownership(s2);
+}
+#[allow(dead_code)] 
+fn get_ownership() -> String {
+    let mut s1 : String = String::from("Hello, ");
+    s1.push_str("Ownership");
+    s1
+}
+#[allow(dead_code)] 
+fn borrowed_as_read_only(s3 : &String){
+    println!("{}", s3);
+}
+#[allow(dead_code)] 
+fn borrowed_as_write_read(s4: &mut String) {
+    s4.push_str(" Changed!");
+    println!("{}", s4);
+}
+#[allow(dead_code)] 
+fn move_ownership(mut s5 : String) {
+    s5.push_str("!!");
+    println!("{}", s5.replace("Ownership Changed!!!", "Own Memory Dropped!"));
 }
 #[allow(dead_code)] 
 fn array() {
