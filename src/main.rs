@@ -9,10 +9,33 @@ fn main() {
     //struct_enum_option(); 
     //array();
     /*** Ownership And Borrow ***/
-    let mut s2 = get_ownership();
-    borrowed_as_read_only(&s2);
-    borrowed_as_write_read(&mut s2);
-    move_ownership(s2);
+    // let mut s2 = get_ownership();
+    // borrowed_as_read_only(&s2);
+    // borrowed_as_write_read(&mut s2);
+    // move_ownership(s2);
+    //
+    vector();
+    
+}
+#[allow(dead_code)] 
+fn vector() {
+    let mut v1: Vec<f32> = Vec::new();
+    let mut v2 = vec![1,2,3,4,5];
+    v1.push(5.9);
+    v1.push(6.8);
+    v1.push(7.7);
+    println!("{:?}", v1);
+    for &i in &v1 {
+        println!("{}  ", i);
+    }
+    println!("{:?}", v2);
+    v2.pop();
+    let g : Option<&i32> = v2.get(2);
+    match g {
+        Some(v) => println!("{}", v),
+        None => (),
+    }
+    println!("{:?}", v2);
 }
 #[allow(dead_code)] 
 fn get_ownership() -> String {
