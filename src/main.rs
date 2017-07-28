@@ -3,6 +3,9 @@ extern crate rand;
 use rand::Rng;
 use std::cmp::Ordering;
 use std::mem;
+use std::collections::HashMap;
+use std::fs::File;
+use std::io::ErrorKind;
 
 fn main() {   
     //guess_the_number();
@@ -14,8 +17,43 @@ fn main() {
     // borrowed_as_write_read(&mut s2);
     // move_ownership(s2);
     //
-    vector();
-    
+    //vector();
+    //hash_map();
+    //error();
+}
+#[allow(dead_code)] 
+fn error() {
+    let f = File::open("hello.txt");
+    let f = match f {
+        Ok(file) => file,
+        Err(ref error) if error.kind() == ErrorKind::NotFound => {
+            match File::create("hello.txt") {
+                Ok(fc) => fc,
+                Err(e) => {
+                    panic!(
+                        "Tried to create file but there was a problem: {:?}",
+                        e
+                    )
+                },
+            }
+        },
+        Err(error) => {
+            panic!(
+                "There was a problem opening the file: {:?}",
+                error
+            )
+        },
+    };
+}
+#[allow(dead_code)] 
+fn hash_map() {
+    let mut scores = HashMap::new();
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Yellow"), 50);
+    scores.insert(String::from("Red"), 70);
+    for (key, value) in &scores {
+        println!("{}: {}", key, value);
+    }
 }
 #[allow(dead_code)] 
 fn vector() {
